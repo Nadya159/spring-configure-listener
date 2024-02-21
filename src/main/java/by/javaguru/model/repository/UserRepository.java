@@ -1,6 +1,6 @@
-package by.javaguru.repository;
+package by.javaguru.model.repository;
 
-import by.javaguru.model.User;
+import by.javaguru.model.entity.User;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -22,7 +22,8 @@ public class UserRepository {
         this.connection = connection;
     }
 
-    public Optional<User> findUserById(Integer id) {
+    //@Autowired
+    public Optional<User> findById(Integer id) {
         try (PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_SQL)) {
             statement.setInt(1, id);
             var result = statement.executeQuery();

@@ -1,6 +1,6 @@
-package by.javaguru.repository;
+package by.javaguru.model.repository;
 
-import by.javaguru.model.Company;
+import by.javaguru.model.entity.Company;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -18,11 +18,12 @@ public class CompanyRepository {
             WHERE id = ?
             """;
 
-    private CompanyRepository(Connection connection) {
+    public CompanyRepository(Connection connection) {
         this.connection = connection;
     }
 
-    public Optional<Company> findCompanyById(Integer id) {
+    //@Autowired
+    public Optional<Company> findById(Integer id) {
         try (PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_SQL)) {
             statement.setInt(1, id);
             var result = statement.executeQuery();

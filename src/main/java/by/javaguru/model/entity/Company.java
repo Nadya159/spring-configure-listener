@@ -1,4 +1,4 @@
-package by.javaguru.model;
+package by.javaguru.model.entity;
 
 import lombok.*;
 

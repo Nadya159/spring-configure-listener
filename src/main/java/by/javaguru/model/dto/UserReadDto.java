@@ -1,2 +1,5 @@
-package by.javaguru.model.dto;public class UserReadDto {
+package by.javaguru.model.dto;
+
+public record UserReadDto(Integer id,
+                          String username) {
 }
