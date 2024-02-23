@@ -3,7 +3,7 @@ package by.javaguru.model.entity;
 import lombok.*;
 
 @Builder
-@Value
+@Data
 public class User {
     Integer id;
     String username;
