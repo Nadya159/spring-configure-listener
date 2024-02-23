@@ -3,7 +3,7 @@ package by.javaguru.model.entity;
 import lombok.*;
 
 @Builder
-@Value
+@Data
 public class Company {
     Integer id;
     String name;
