@@ -8,6 +8,7 @@ public class UserMapper {
     public User mapFromDto(UserCreateDto userDto) {
         return User.builder()
                 .username(userDto.username())
+                .companyId(userDto.companyId())
                 .build();
     }
 }

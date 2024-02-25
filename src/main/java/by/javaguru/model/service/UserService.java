@@ -28,7 +28,7 @@ public class UserService {
         return userRepository.findById(id)
                 .map(entity -> {
                     applicationEventPublisher.publishEvent(new EntityEvent(entity, AccessType.READ));
-                    return new UserReadDto(entity.getId(), entity.getUsername());
+                    return new UserReadDto(entity.getId(), entity.getUsername(), entity.getCompanyId());
                 });
     }
 
@@ -36,7 +36,7 @@ public class UserService {
         return userRepository.findAll().stream()
                 .map(entity -> {
                     applicationEventPublisher.publishEvent(new EntityEvent(entity, AccessType.READ));
-                    return new UserReadDto(entity.getId(), entity.getUsername());
+                    return new UserReadDto(entity.getId(), entity.getUsername(), entity.getCompanyId());
                 })
                 .collect(Collectors.toList());
     }

@@ -7,4 +7,5 @@ import lombok.*;
 public class User {
     Integer id;
     String username;
+    Integer companyId;
 }

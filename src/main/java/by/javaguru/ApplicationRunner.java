@@ -22,8 +22,8 @@ public class ApplicationRunner {
             System.out.println(user);
             userService.update(5, "Joshua Bloch");
             userService.delete(3);
-            userService.create(new UserCreateDto("Steve Wozniak"));
-            //userService.findAll();
+            userService.create(new UserCreateDto("Steve Wozniak", 2));
+            userService.findAll();
 
             var companyService = context.getBean("companyService", CompanyService.class);
             var company = companyService.findById(2);
