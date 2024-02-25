@@ -16,20 +16,19 @@ public class UserRepository implements CrudRepository<Integer, User> {
     private final Connection connection;
 
     private final static String FIND_ALL_SQL = """
-            SELECT id, username
+            SELECT id, username, company_id
             FROM users
             """;
-    private final static String FIND_BY_ID_SQL = FIND_ALL_SQL + """
-            WHERE id = ?
-            """;
+    private final static String FIND_BY_ID_SQL = FIND_ALL_SQL + """ 
+            WHERE id = ?""";
 
     private final static String SAVE_SQL = """
-            INSERT INTO users (username)
-            VALUES (?)
+            INSERT INTO users (username, company_id)
+            VALUES (?, ?)
             """;
     private final static String UPDATE_SQL = """
             UPDATE users
-            SET username = ?
+            SET username = ?, company_id = ?
             WHERE id = ?
             """;
     private final static String DELETE_SQL = """
@@ -50,6 +49,7 @@ public class UserRepository implements CrudRepository<Integer, User> {
                 user = User.builder()
                         .id(result.getInt("id"))
                         .username(result.getString("username"))
+                        .companyId(result.getInt("company_id"))
                         .build();
             }
             return Optional.ofNullable(user);
@@ -66,7 +66,8 @@ public class UserRepository implements CrudRepository<Integer, User> {
             while (result.next())
                 users.add(User.builder()
                         .id(result.getInt("id"))
-                        .username(result.getString("name"))
+                        .username(result.getString("username"))
+                        .companyId(result.getInt("company_id"))
                         .build());
             return users;
         } catch (SQLException e) {
@@ -88,6 +89,7 @@ public class UserRepository implements CrudRepository<Integer, User> {
     public User save(User user) {
         try (PreparedStatement statement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getUsername());
+            statement.setInt(2, user.getCompanyId());
             statement.executeUpdate();
             var keys = statement.getGeneratedKeys();
             keys.next();
@@ -102,7 +104,8 @@ public class UserRepository implements CrudRepository<Integer, User> {
     public void update(User user) {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_SQL)) {
             statement.setString(1, user.getUsername());
-            statement.setInt(2, user.getId());
+            statement.setInt(2, user.getCompanyId());
+            statement.setInt(3, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

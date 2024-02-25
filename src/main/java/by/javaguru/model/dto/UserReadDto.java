@@ -1,5 +1,6 @@
 package by.javaguru.model.dto;
 
 public record UserReadDto(Integer id,
-                          String username) {
+                          String username,
+                          Integer companyId) {
 }
